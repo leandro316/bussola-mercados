@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bússola de Mercados Internacionais — AXIA</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300..650;1,9..144,300..650&display=swap');
+
+  :root{
+    --paper:#FCFAF5; --bone-50:#F8F5EE; --bone-100:#F1ECE1;
+    --ink-900:#0A1020; --ink-950:#05080F; --ink-850:#0D1526; --ink-800:#121B30; --ink-700:#1B2740;
+    --gold:#C9A24B; --gold-bright:#E3C377; --gold-deep:#7E6225; --gold-soft:rgba(201,162,75,.14);
+    --txt-dark:#EFEBE1; --txt-dark-muted:#A9B0C0;
+    --txt-light:#1A2233; --txt-light-muted:#525D74;
+    --line-l:rgba(26,34,51,.13); --line-d:rgba(239,235,225,.12);
+    --display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+    --sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--paper); color:var(--txt-light); font-family:var(--sans); line-height:1.65; font-size:16px; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 0 40px;}
+
+  .hero{position:relative; overflow:hidden; background:var(--ink-950); padding:38px 24px 44px;}
+  .hero-map{position:absolute; top:0; right:-40px; width:520px; max-width:70%; height:auto; opacity:.6; pointer-events:none;}
+  .hero-top{display:flex; align-items:center; gap:10px; margin-bottom:34px; position:relative; z-index:1;}
+  .hero-top .logo-mark{width:30px; height:25px; display:block;}
+  .hero-top .logo-word{font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:.14em; color:var(--txt-dark);}
+  .hero-top .logo-word sup{color:var(--gold); font-size:9px;}
+  .hero-grid{display:flex; align-items:flex-end; gap:24px; position:relative; z-index:1;}
+  .hero-copy{flex:1; min-width:0;}
+  .hero-eyebrow{display:flex; align-items:center; gap:8px; font-family:var(--sans); font-weight:600; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--txt-dark-muted); margin-bottom:16px;}
+  .hero-eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .hero h1{font-family:var(--display); font-size:clamp(28px,5.6vw,40px); line-height:1.14; margin:0 0 16px; font-weight:600; letter-spacing:-.005em; color:var(--txt-dark);}
+  .hero h1 .accent{color:var(--gold-bright);}
+  .hero-sub{font-size:16.5px; color:var(--txt-dark-muted); max-width:48ch; margin:0;}
+  .compass-art{flex-shrink:0; width:130px; height:auto;}
+  @media (max-width:620px){ .hero-grid{flex-direction:column; align-items:stretch;} .compass-art{width:100px; align-self:flex-end;} .hero-map{opacity:.4;} }
+
+  .inner{padding:0 24px;}
+
+  .eyebrow{display:flex; align-items:center; gap:8px; font-family:var(--sans); font-weight:600; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); margin:36px 0 14px;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+
+  .lede{font-size:17.5px; color:var(--txt-light-muted); max-width:62ch; margin:0 0 40px;}
+  .lede strong{color:var(--txt-light); font-weight:700;}
+
+  .toc{background:var(--bone-50); border:1px solid var(--line-l); border-radius:12px; padding:22px 24px; margin-bottom:52px;}
+  .toc-title{font-family:var(--sans); font-weight:600; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--txt-light-muted); margin-bottom:14px;}
+  .toc ol{list-style:none; margin:0; padding:0; counter-reset:toc;}
+  .toc li{counter-increment:toc; display:flex; gap:12px; padding:9px 0; border-bottom:1px solid var(--line-l); font-size:14.5px;}
+  .toc li:last-child{border-bottom:none;}
+  .toc li::before{content:counter(toc,decimal-leading-zero); font-family:var(--sans); color:var(--gold-deep); font-size:13px; font-weight:700;}
+  .toc a{color:var(--txt-light); text-decoration:none; font-weight:500;}
+  .toc a:hover{color:var(--gold-deep);}
+
+  .part{margin:64px 0;}
+  .part-tag{font-family:var(--sans); font-weight:600; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:10px;}
+  h2{font-family:var(--display); font-size:26px; margin:0 0 20px; font-weight:600; letter-spacing:-.005em; color:var(--txt-light);}
+  p{margin:0 0 16px; color:var(--txt-light-muted);}
+  strong{color:var(--txt-light);}
+  .accent{color:var(--gold-deep);}
+
+  .stat-big{background:var(--bone-50); border:1px solid var(--line-l); border-radius:12px; padding:24px 22px; margin:24px 0; display:flex; align-items:center; gap:20px;}
+  .stat-big b{font-family:var(--display); font-size:34px; font-weight:600; color:var(--gold-deep); white-space:nowrap;}
+  .stat-big span{font-size:14px; color:var(--txt-light-muted); line-height:1.5;}
+  @media (max-width:560px){ .stat-big{flex-direction:column; align-items:flex-start; gap:8px;} }
+
+  .icon-row{display:flex; gap:0; margin:26px 0; background:var(--bone-50); border:1px solid var(--line-l); border-radius:12px; padding:20px 8px;}
+  .icon-item{flex:1; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:0 16px; border-left:1px solid var(--line-l);}
+  .icon-item:first-child{border-left:none;}
+  .icon-item svg{width:26px; height:26px; stroke:var(--gold-deep); flex-shrink:0;}
+  .icon-item span{font-size:13px; color:var(--txt-light-muted); line-height:1.4;}
+  @media (max-width:560px){ .icon-row{flex-direction:column; gap:16px;} .icon-item{border-left:none; border-top:1px solid var(--line-l); padding-top:14px;} .icon-item:first-child{border-top:none; padding-top:0;} }
+
+  .tip{border-left:3px solid var(--gold); background:var(--gold-soft); border-radius:0 10px 10px 0; padding:14px 18px; margin:20px 0; font-size:14.5px; color:var(--txt-light);}
+
+  /* comparador de mercados */
+  .market-card{background:var(--bone-50); border:1px solid var(--line-l); border-radius:14px; padding:22px 20px; margin:20px 0;}
+  .market-card-head{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .market-card-head .m-letter{width:28px; height:28px; border-radius:50%; background:var(--ink-900); color:var(--gold-bright); font-family:var(--display); font-weight:600; font-size:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .market-card-head input[type=text]{flex:1; border:1px solid var(--line-l); background:var(--paper); border-radius:8px; padding:10px 12px; font-family:var(--sans); font-size:15px; font-weight:600; color:var(--txt-light);}
+  .market-card-head input[type=text]:focus{outline:none; border-color:var(--gold);}
+  .crit{padding:14px 0; border-bottom:1px solid var(--line-l);}
+  .crit:last-of-type{border-bottom:none;}
+  .crit-label{font-size:14px; font-weight:700; color:var(--txt-light); margin-bottom:10px;}
+  .crit-opts{display:flex; gap:8px;}
+  .crit-opt{flex:1; text-align:center; padding:9px 6px; border-radius:8px; border:1px solid var(--line-l); background:var(--paper); cursor:pointer; font-size:12.5px; color:var(--txt-light-muted); transition:background .15s,border-color .15s;}
+  .crit-opt input{display:none;}
+  .crit-opt.checked{background:var(--gold-soft); border-color:var(--gold); color:var(--txt-light); font-weight:600;}
+  @media (max-width:480px){ .crit-opts{flex-direction:column;} }
+
+  .ranking{position:sticky; bottom:16px; margin-top:28px; background:var(--ink-900); border-radius:14px; padding:22px 22px 20px; color:var(--txt-dark);}
+  .ranking-label{font-family:var(--sans); font-weight:600; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--txt-dark-muted); margin-bottom:14px;}
+  .rank-row{display:flex; align-items:center; gap:12px; margin-bottom:12px;}
+  .rank-pos{font-family:var(--display); font-size:15px; color:var(--gold-bright); font-weight:600; width:20px; flex-shrink:0;}
+  .rank-name{font-size:13.5px; font-weight:600; width:88px; flex-shrink:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .rank-bar-bg{flex:1; height:8px; background:var(--ink-700); border-radius:4px; overflow:hidden;}
+  .rank-bar-fill{height:100%; background:var(--gold); border-radius:4px; transition:width .25s ease; width:0%;}
+  .rank-score{font-family:var(--sans); font-size:13px; font-weight:700; color:var(--gold-bright); width:38px; text-align:right; flex-shrink:0;}
+  .ranking-sub{font-size:13px; color:var(--txt-dark-muted); margin-top:10px;}
+
+  .incoterm-note{font-size:13px; color:var(--txt-light-muted); margin-top:6px;}
+
+  .cta{margin-top:72px; background:var(--ink-950); border-radius:16px; padding:34px 30px; display:flex; gap:22px; align-items:center;}
+  .cta img.avatar{width:88px; height:88px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--gold);}
+  .cta-body h3{font-family:var(--display); margin:0 0 8px; font-size:19px; font-weight:600; color:var(--txt-dark);}
+  .cta-body p{font-size:14.5px; color:var(--txt-dark-muted); margin:0 0 16px;}
+  .btn{display:inline-flex; align-items:center; gap:8px; background:var(--gold); color:var(--ink-950); font-weight:700; font-size:14.5px; padding:12px 22px; border-radius:999px; text-decoration:none;}
+  .btn::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--ink-950);}
+  .ps{font-style:italic; color:var(--txt-dark-muted); font-size:13px; margin-top:14px;}
+  @media (max-width:560px){ .cta{flex-direction:column; align-items:flex-start;} }
+
+  footer{display:flex; justify-content:space-between; align-items:center; margin-top:48px; padding-top:20px; border-top:1px solid var(--line-l); font-family:var(--sans); font-weight:600; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--txt-light-muted);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <svg class="hero-map" viewBox="0 0 520 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="#1B2740" stroke-width="1">
+        <path d="M40 220 Q160 60 300 110 T480 60" stroke-dasharray="3 6"/>
+        <path d="M60 240 Q220 140 340 190 T500 130" stroke-dasharray="3 6"/>
+      </g>
+      <g fill="#C9A24B">
+        <circle cx="40" cy="220" r="3.5"/>
+        <circle cx="300" cy="110" r="3.5"/>
+        <circle cx="480" cy="60" r="3.5"/>
+        <circle cx="340" cy="190" r="3.5"/>
+        <circle cx="500" cy="130" r="3.5"/>
+      </g>
+    </svg>
+
+    <div class="hero-top">
+      <svg class="logo-mark" viewBox="140 100 740 605" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path fill="#E3C377" d="M283 393 L401 117 L472 290 L441 393 Z"/>
+        <path fill="#C9A24B" d="M424 117 L594 117 L866 690 L697 690 Z"/>
+        <path fill="#B08D3C" d="M267 413 L556 413 L622 551 L363 551 L311 690 L155 690 Z"/>
+      </svg>
+      <span class="logo-word">AXIA<sup>®</sup></span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-eyebrow"><span class="dot"></span>Material gratuito · Priorização de Mercados</div>
+        <h1>O Brasil exportou US$ 250,9 bi em 2026. <span class="accent">Isso não significa oportunidade automática</span> pra sua empresa.</h1>
+        <p class="hero-sub">Mercado grande não é mercado certo. Esta Bússola ajuda a comparar seus candidatos com critério.</p>
+      </div>
+      <svg class="compass-art" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="70" cy="70" r="58" stroke="#7E6225" stroke-width="2"/>
+        <circle cx="70" cy="70" r="58" stroke="#C9A24B" stroke-width="1" stroke-dasharray="1 5"/>
+        <path d="M70 22 L82 70 L70 118 L58 70 Z" fill="#C9A24B"/>
+        <path d="M70 22 L82 70 L70 70 Z" fill="#E3C377"/>
+        <circle cx="70" cy="70" r="5" fill="#121B30" stroke="#C9A24B" stroke-width="1.5"/>
+        <text x="70" y="16" text-anchor="middle" fill="#C9A24B" font-size="9" font-family="Archivo, sans-serif" font-weight="700">N</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="inner">
+
+  <p class="lede">Esta Bússola tem a Matriz Top 3 que eu uso com clientes: você lista até 3 mercados candidatos, pontua cada um nos mesmos 5 critérios, e descobre qual merece ser investigado primeiro.</p>
+
+  <div class="tip">Esta é uma primeira triagem comparativa entre mercados que você já tem em mente. Ela não substitui um estudo de mercado completo — ajuda a decidir onde investir tempo de investigação primeiro.</div>
+
+  <div class="toc">
+    <div class="toc-title">Neste material</div>
+    <ol>
+      <li><a href="#parte01">Por que mercado grande não é mercado certo</a></li>
+      <li><a href="#parte02">A Matriz Top 3: compare até 3 mercados</a></li>
+      <li><a href="#parte03">O que fazer com o resultado</a></li>
+    </ol>
+  </div>
+
+  <div class="part" id="parte01">
+    <div class="part-tag">Parte 01</div>
+    <h2>Por que mercado grande <span class="accent">não</span> é mercado certo</h2>
+    <p>O fluxo de comércio mostra que existe mercado acontecendo. A análise é que mostra onde pode existir oportunidade real para o seu produto especificamente.</p>
+
+    <div class="stat-big">
+      <b>US$ 250,9 bi</b>
+      <span>exportados pelo Brasil em 2026 — 10,3% acima do mesmo período do ano anterior. Um recorde não significa que qualquer mercado, ou o mercado óbvio, seja o certo para a sua empresa.</span>
+    </div>
+
+    <p>Estados Unidos podem ser o maior mercado para determinado produto e não ser o melhor ponto de entrada. Dubai pode aparecer em todas as conversas sobre internacionalização e não fazer sentido para a sua operação. Mercado grande não significa mercado certo — significa apenas que existe volume acontecendo em algum lugar.</p>
+
+    <div class="icon-row">
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <span>Fluxo de comércio mostra volume, não aderência</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M14 8h7v7"/></svg>
+        <span>Critério comparativo, não achismo de manchete</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 6 7 12a7 7 0 0 1-14 0c0-6 7-12 7-12z"/><circle cx="12" cy="14" r="2.2"/></svg>
+        <span>Demanda, tarifa, logística, regulação e concorrência juntas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="part" id="parte02">
+    <div class="part-tag">Parte 02</div>
+    <h2>A Matriz Top 3: compare até 3 mercados</h2>
+    <p>Dê um nome a cada mercado candidato e pontue os 5 critérios com o que você sabe hoje. No fim, o ranking mostra qual merece ser investigado primeiro.</p>
+
+    <div class="matrix" id="matrix">
+      <!-- market cards injetados via JS -->
+    </div>
+
+    <div class="ranking" id="ranking">
+      <div class="ranking-label">Ranking</div>
+      <div id="rankRows"></div>
+      <div class="ranking-sub" id="rankSub">Pontue pelo menos um mercado pra ver o ranking.</div>
+    </div>
+  </div>
+
+  <div class="part" id="parte03">
+    <div class="part-tag">Parte 03</div>
+    <h2>O que fazer com o resultado</h2>
+    <p>O mercado com a maior pontuação não é necessariamente "o mercado certo" — é o que reúne mais fundamentos favoráveis entre os que você já cogitava, e por isso merece a primeira rodada de investigação real: contato com importador, checagem de exigência regulatória específica, cotação de frete de verdade.</p>
+    <p>Mercado que cresce rápido não é mercado fácil de entrar — geralmente é onde a concorrência também está de olho. O primeiro mercado certo é aquele em que demanda, produto, acesso e perfil de comprador fazem sentido juntos, não o que tem o número mais chamativo na manchete.</p>
+    <p><strong>Mercado grande não significa mercado certo.</strong> Mercado certo é o que a sua operação, hoje, tem mais condição real de entrar e sustentar.</p>
+  </div>
+
+  <div class="cta">
+    <img class="avatar" src="leandro-pietro.png" alt="Leandro Di Pietro">
+    <div class="cta-body">
+      <h3>Leandro Di Pietro — AXIA</h3>
+      <p>Na AXIA, o diagnóstico é apenas o início. Quando existe aderência, atuo na priorização de mercado e na execução comercial da expansão internacional, como Diretor Comercial de Exportação Fracionado.</p>
+      <a class="btn" href="https://cal.com/leandro-di-pietro/60min" target="_blank" rel="noopener">Marcar uma conversa com o Leandro</a>
+      <div class="ps">PS.: Funciona pra empresa com capacidade produtiva relevante, mesmo que nunca tenha vendido fora do Brasil.</div>
+    </div>
+  </div>
+
+  <footer>
+    <span>AXIA</span>
+    <span>Internacionalização e estruturação comercial B2B</span>
+  </footer>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var criteria = [
+    {key:'demanda', label:'Demanda: existe demanda real e crescente pelo seu tipo de produto nesse mercado?', opts:['Fraca ou desconhecida','Moderada','Forte e crescente']},
+    {key:'tarifa', label:'Tarifa: as tarifas de importação pro seu produto nesse mercado são favoráveis?', opts:['Altas ou desconhecidas','Médias','Baixas ou zeradas (acordo comercial)']},
+    {key:'logistica', label:'Logística: frete, prazo e distância até esse mercado são viáveis?', opts:['Difícil ou caro','Razoável','Direta e competitiva']},
+    {key:'regulacao', label:'Barreiras: seu produto já atende, ou consegue atender fácil, as exigências regulatórias/sanitárias desse mercado?', opts:['Exigências complexas/desconhecidas','Parcialmente mapeadas','Já atende ou é simples adaptar']},
+    {key:'concorrencia', label:'Concorrência: quantos concorrentes já disputam esse mercado no seu segmento?', opts:['Mercado saturado','Alguma concorrência','Pouca concorrência, espaço real']}
+  ];
+
+  var matrixEl = document.getElementById('matrix');
+  var letters = ['A','B','C'];
+  var html = '';
+  letters.forEach(function(L, idx){
+    html += '<div class="market-card" data-market="'+idx+'">';
+    html += '<div class="market-card-head"><div class="m-letter">'+L+'</div><input type="text" class="m-name" placeholder="Nome do mercado '+L+' (ex: Estados Unidos)"></div>';
+    criteria.forEach(function(c){
+      html += '<div class="crit" data-crit="'+c.key+'">';
+      html += '<div class="crit-label">'+c.label+'</div>';
+      html += '<div class="crit-opts">';
+      c.opts.forEach(function(opt, i){
+        html += '<label class="crit-opt"><input type="radio" name="m'+idx+'_'+c.key+'" value="'+i+'"><span>'+opt+'</span></label>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+  });
+  matrixEl.innerHTML = html;
+
+  var rankRows = document.getElementById('rankRows');
+  var rankSub = document.getElementById('rankSub');
+
+  function update(){
+    document.querySelectorAll('.crit-opt').forEach(function(o){
+      var input = o.querySelector('input');
+      o.classList.toggle('checked', input.checked);
+    });
+
+    var results = letters.map(function(L, idx){
+      var card = document.querySelector('.market-card[data-market="'+idx+'"]');
+      var name = card.querySelector('.m-name').value.trim() || ('Mercado '+L);
+      var total = 0, answered = 0;
+      criteria.forEach(function(c){
+        var checked = card.querySelector('input[name="m'+idx+'_'+c.key+'"]:checked');
+        if (checked){ total += parseInt(checked.value,10); answered++; }
+      });
+      return {name:name, total:total, answered:answered};
+    });
+
+    var anyAnswered = results.some(function(r){ return r.answered > 0; });
+    if (!anyAnswered){
+      rankRows.innerHTML = '';
+      rankSub.textContent = 'Pontue pelo menos um mercado pra ver o ranking.';
+      return;
+    }
+
+    var sorted = results.slice().sort(function(a,b){ return b.total - a.total; });
+    var rowsHtml = '';
+    sorted.forEach(function(r, i){
+      var pct = (r.total/10*100);
+      rowsHtml += '<div class="rank-row">';
+      rowsHtml += '<div class="rank-pos">'+(i+1)+'º</div>';
+      rowsHtml += '<div class="rank-name">'+r.name+'</div>';
+      rowsHtml += '<div class="rank-bar-bg"><div class="rank-bar-fill" style="width:'+pct+'%"></div></div>';
+      rowsHtml += '<div class="rank-score">'+r.total+'/10</div>';
+      rowsHtml += '</div>';
+    });
+    rankRows.innerHTML = rowsHtml;
+
+    var complete = results.filter(function(r){ return r.answered === 5; });
+    if (complete.length === 0){
+      rankSub.textContent = 'Continue pontuando os 5 critérios de cada mercado pra fechar o ranking.';
+    } else {
+      var top = sorted[0];
+      rankSub.textContent = top.name + ' reúne mais fundamentos favoráveis até aqui — é o primeiro candidato pra investigar de verdade.';
+    }
+  }
+
+  matrixEl.addEventListener('change', update);
+  matrixEl.addEventListener('input', update);
+  update();
+})();
+</script>
+</body>
+</html>
