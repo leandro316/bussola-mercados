@@ -101,6 +101,24 @@
   .rank-score{font-family:var(--sans); font-size:13px; font-weight:700; color:var(--gold-bright); width:38px; text-align:right; flex-shrink:0;}
   .ranking-sub{font-size:13px; color:var(--txt-dark-muted); margin-top:10px;}
 
+  .pais-box{margin:22px 0 8px;}
+  .pais-box label{display:block; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--txt-light-muted); margin-bottom:8px;}
+  .pais-box input{width:100%; border:1px solid var(--line-l); background:var(--paper); border-radius:8px; padding:12px 14px; font-family:var(--sans); font-size:16px; font-weight:600; color:var(--txt-light);}
+  .pais-box input:focus{outline:none; border-color:var(--gold);}
+  .sei-item{background:var(--bone-50); border:1px solid var(--line-l); border-radius:12px; padding:16px 18px; margin:12px 0;}
+  .sei-q{font-size:15px; font-weight:700; color:var(--txt-light); margin-bottom:12px; display:flex; gap:10px;}
+  .sei-n{font-family:var(--display); color:var(--gold-deep); font-weight:600; flex-shrink:0;}
+  .sei-opts{display:flex; gap:8px;}
+  .sei-opts .crit-opt{flex:1;}
+  .falta{margin-top:28px; background:var(--ink-900); border-radius:14px; padding:22px; color:var(--txt-dark);}
+  .falta-label{font-weight:600; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--txt-dark-muted); margin-bottom:14px;}
+  .falta-item{border-top:1px solid var(--line-d); padding:14px 0;}
+  .falta-item:first-child{border-top:none; padding-top:0;}
+  .falta-item h4{font-family:var(--display); font-size:16.5px; font-weight:600; color:var(--gold-bright); margin:0 0 8px;}
+  .falta-item p{margin:0 0 6px; font-size:14px; color:var(--txt-dark-muted);}
+  .falta-item p strong{color:var(--txt-dark);}
+  .falta-sub{font-size:14px; color:var(--txt-dark-muted); margin-top:6px;}
+  .falta-sub strong{color:var(--txt-dark);}
   .incoterm-note{font-size:13px; color:var(--txt-light-muted); margin-top:6px;}
 
   .cta{margin-top:72px; background:var(--ink-950); border-radius:16px; padding:34px 30px; display:flex; gap:22px; align-items:center;}
@@ -145,8 +163,8 @@
     <div class="hero-grid">
       <div class="hero-copy">
         <div class="hero-eyebrow"><span class="dot"></span>Material gratuito · Priorização de Mercados</div>
-        <h1>O Brasil exportou US$ 250,9 bi em 2026. <span class="accent">Isso não significa oportunidade automática</span> pra sua empresa.</h1>
-        <p class="hero-sub">Mercado grande não é mercado certo. Esta Bússola ajuda a comparar seus candidatos com critério.</p>
+        <h1>Antes de escolher um mercado, <span class="accent">descubra o que você ainda não sabe.</span></h1>
+        <p class="hero-sub">Mercado grande não é mercado certo. Pense num país, responda "Sei" ou "Ainda não sei" e saia sabendo o que falta descobrir e onde.</p>
       </div>
       <svg class="compass-art" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle cx="70" cy="70" r="58" stroke="#7E6225" stroke-width="2"/>
@@ -161,16 +179,16 @@
 
   <div class="inner">
 
-  <p class="lede">Esta Bússola tem a Matriz Top 3 que eu uso com clientes: você lista até 3 mercados candidatos, pontua cada um nos mesmos 5 critérios, e descobre qual merece ser investigado primeiro.</p>
+  <p class="lede">Esta Bússola não dá nota para países que você ainda não conhece. Ela faz 7 perguntas sobre o mercado que você está cogitando e mostra <strong>o que você ainda precisa descobrir, por que importa e onde encontrar</strong>.</p>
 
-  <div class="tip">Esta é uma primeira triagem comparativa entre mercados que você já tem em mente. Ela não substitui um estudo de mercado completo — ajuda a decidir onde investir tempo de investigação primeiro.</div>
+  <div class="tip">Esta é uma primeira triagem sobre um mercado que você já tem em mente. Ela não substitui um estudo de mercado completo: mostra o que falta saber antes de investir tempo e dinheiro.</div>
 
   <div class="toc">
     <div class="toc-title">Neste material</div>
     <ol>
       <li><a href="#parte01">Por que mercado grande não é mercado certo</a></li>
-      <li><a href="#parte02">A Matriz Top 3: compare até 3 mercados</a></li>
-      <li><a href="#parte03">O que fazer com o resultado</a></li>
+      <li><a href="#parte02">Sei ou ainda não sei: 7 itens sobre o país</a></li>
+      <li><a href="#parte03">O que fazer com a sua lista</a></li>
     </ol>
   </div>
 
@@ -204,26 +222,76 @@
 
   <div class="part" id="parte02">
     <div class="part-tag">Parte 02</div>
-    <h2>A Matriz Top 3: compare até 3 mercados</h2>
-    <p>Dê um nome a cada mercado candidato e pontue os 5 critérios com o que você sabe hoje. No fim, o ranking mostra qual merece ser investigado primeiro.</p>
+    <h2>Sei ou ainda não sei: 7 itens sobre o país</h2>
+    <p>Pense em <strong>um país</strong> que você está cogitando e responda "Sei" ou "Ainda não sei" para cada item. No fim, aparecem só os que você ainda não sabe, cada um com o porquê e onde descobrir.</p>
 
-    <div class="matrix" id="matrix">
-      <!-- market cards injetados via JS -->
+    <div class="pais-box"><label for="pais">País que você está cogitando</label><input type="text" id="pais" placeholder="ex.: Estados Unidos"></div>
+
+    <div class="sei-list" id="seiList">
+      <div class="sei-item" data-i="0">
+        <div class="sei-q"><span class="sei-n">01</span>Esse país importa produtos como o seu, em volume relevante?</div>
+        <div class="sei-opts">
+          <label class="crit-opt"><input type="radio" name="i0" value="sei"><span>Sei</span></label>
+          <label class="crit-opt"><input type="radio" name="i0" value="nao"><span>Ainda não sei</span></label>
+        </div>
+      </div>
+      <div class="sei-item" data-i="1">
+        <div class="sei-q"><span class="sei-n">02</span>Quanto seu produto paga de imposto de importação lá?</div>
+        <div class="sei-opts">
+          <label class="crit-opt"><input type="radio" name="i1" value="sei"><span>Sei</span></label>
+          <label class="crit-opt"><input type="radio" name="i1" value="nao"><span>Ainda não sei</span></label>
+        </div>
+      </div>
+      <div class="sei-item" data-i="2">
+        <div class="sei-q"><span class="sei-n">03</span>Que registro ou certificação o país exige para o produto entrar?</div>
+        <div class="sei-opts">
+          <label class="crit-opt"><input type="radio" name="i2" value="sei"><span>Sei</span></label>
+          <label class="crit-opt"><input type="radio" name="i2" value="nao"><span>Ainda não sei</span></label>
+        </div>
+      </div>
+      <div class="sei-item" data-i="3">
+        <div class="sei-q"><span class="sei-n">04</span>Quanto custa e quanto demora o frete até lá?</div>
+        <div class="sei-opts">
+          <label class="crit-opt"><input type="radio" name="i3" value="sei"><span>Sei</span></label>
+          <label class="crit-opt"><input type="radio" name="i3" value="nao"><span>Ainda não sei</span></label>
+        </div>
+      </div>
+      <div class="sei-item" data-i="4">
+        <div class="sei-q"><span class="sei-n">05</span>De quais países esse mercado já compra, e a que preço?</div>
+        <div class="sei-opts">
+          <label class="crit-opt"><input type="radio" name="i4" value="sei"><span>Sei</span></label>
+          <label class="crit-opt"><input type="radio" name="i4" value="nao"><span>Ainda não sei</span></label>
+        </div>
+      </div>
+      <div class="sei-item" data-i="5">
+        <div class="sei-q"><span class="sei-n">06</span>Quem compraria de você: importador, distribuidor, indústria ou varejista?</div>
+        <div class="sei-opts">
+          <label class="crit-opt"><input type="radio" name="i5" value="sei"><span>Sei</span></label>
+          <label class="crit-opt"><input type="radio" name="i5" value="nao"><span>Ainda não sei</span></label>
+        </div>
+      </div>
+      <div class="sei-item" data-i="6">
+        <div class="sei-q"><span class="sei-n">07</span>O que esse comprador exige para fechar: lote mínimo, prazo de pagamento, embalagem?</div>
+        <div class="sei-opts">
+          <label class="crit-opt"><input type="radio" name="i6" value="sei"><span>Sei</span></label>
+          <label class="crit-opt"><input type="radio" name="i6" value="nao"><span>Ainda não sei</span></label>
+        </div>
+      </div>
     </div>
 
-    <div class="ranking" id="ranking">
-      <div class="ranking-label">Ranking</div>
-      <div id="rankRows"></div>
-      <div class="ranking-sub" id="rankSub">Pontue pelo menos um mercado pra ver o ranking.</div>
+    <div class="falta" id="falta">
+      <div class="falta-label">O que você ainda precisa descobrir</div>
+      <div id="faltaRows"></div>
+      <div class="falta-sub" id="faltaSub">Responda os 7 itens pra ver a sua lista.</div>
     </div>
   </div>
 
   <div class="part" id="parte03">
     <div class="part-tag">Parte 03</div>
-    <h2>O que fazer com o resultado</h2>
-    <p>O mercado com a maior pontuação não é necessariamente "o mercado certo" — é o que reúne mais fundamentos favoráveis entre os que você já cogitava, e por isso merece a primeira rodada de investigação real: contato com importador, checagem de exigência regulatória específica, cotação de frete de verdade.</p>
-    <p>Mercado que cresce rápido não é mercado fácil de entrar — geralmente é onde a concorrência também está de olho. O primeiro mercado certo é aquele em que demanda, produto, acesso e perfil de comprador fazem sentido juntos, não o que tem o número mais chamativo na manchete.</p>
-    <p><strong>Mercado grande não significa mercado certo.</strong> Mercado certo é o que a sua operação, hoje, tem mais condição real de entrar e sustentar.</p>
+    <h2>O que fazer com a sua lista</h2>
+    <p>Cada "ainda não sei" é uma descoberta pendente, e cada uma tem um lugar onde a resposta existe. Comece pelas que podem inviabilizar a venda (registro, tarifa e exigências do comprador) e deixe para depois as que só refinam a decisão.</p>
+    <p>Mercado que cresce rápido não é mercado fácil de entrar. O primeiro mercado certo é aquele em que demanda, tarifa, logística, exigências e perfil de comprador fazem sentido juntos para o seu produto, e não o que tem o número mais chamativo na manchete.</p>
+    <p><strong>Escolher mercado pelo tamanho do país ou pelo primeiro contato que aparece é o erro mais comum.</strong> Cada item da sua lista responde, com dados, se esse mercado vale o seu esforço.</p>
   </div>
 
   <div class="cta">
@@ -246,84 +314,43 @@
 
 <script>
 (function(){
-  var criteria = [
-    {key:'demanda', label:'Demanda: existe demanda real e crescente pelo seu tipo de produto nesse mercado?', opts:['Fraca ou desconhecida','Moderada','Forte e crescente']},
-    {key:'tarifa', label:'Tarifa: as tarifas de importação pro seu produto nesse mercado são favoráveis?', opts:['Altas ou desconhecidas','Médias','Baixas ou zeradas (acordo comercial)']},
-    {key:'logistica', label:'Logística: frete, prazo e distância até esse mercado são viáveis?', opts:['Difícil ou caro','Razoável','Direta e competitiva']},
-    {key:'regulacao', label:'Barreiras: seu produto já atende, ou consegue atender fácil, as exigências regulatórias/sanitárias desse mercado?', opts:['Exigências complexas/desconhecidas','Parcialmente mapeadas','Já atende ou é simples adaptar']},
-    {key:'concorrencia', label:'Concorrência: quantos concorrentes já disputam esse mercado no seu segmento?', opts:['Mercado saturado','Alguma concorrência','Pouca concorrência, espaço real']}
-  ];
-
-  var matrixEl = document.getElementById('matrix');
-  var letters = ['A','B','C'];
-  var html = '';
-  letters.forEach(function(L, idx){
-    html += '<div class="market-card" data-market="'+idx+'">';
-    html += '<div class="market-card-head"><div class="m-letter">'+L+'</div><input type="text" class="m-name" placeholder="Nome do mercado '+L+' (ex: Estados Unidos)"></div>';
-    criteria.forEach(function(c){
-      html += '<div class="crit" data-crit="'+c.key+'">';
-      html += '<div class="crit-label">'+c.label+'</div>';
-      html += '<div class="crit-opts">';
-      c.opts.forEach(function(opt, i){
-        html += '<label class="crit-opt"><input type="radio" name="m'+idx+'_'+c.key+'" value="'+i+'"><span>'+opt+'</span></label>';
-      });
-      html += '</div></div>';
-    });
-    html += '</div>';
-  });
-  matrixEl.innerHTML = html;
-
-  var rankRows = document.getElementById('rankRows');
-  var rankSub = document.getElementById('rankSub');
+  var ITENS = [{"q": "Esse país importa produtos como o seu, em volume relevante?", "w": "sem demanda comprovada, todo esforço comercial é aposta.", "o": "ITC Trade Map, gratuito com cadastro, pesquisando pelos 6 primeiros dígitos do NCM."}, {"q": "Quanto seu produto paga de imposto de importação lá?", "w": "a tarifa entra no preço final e pode tirar você da disputa.", "o": "Market Access Map, do ITC, gratuito com cadastro."}, {"q": "Que registro ou certificação o país exige para o produto entrar?", "w": "algumas exigências levam meses e definem quando você pode começar a vender.", "o": "no órgão regulador do país de destino e com importadores do setor."}, {"q": "Quanto custa e quanto demora o frete até lá?", "w": "frete e prazo podem anular sua vantagem de preço.", "o": "pedindo cotação a um agente de cargas."}, {"q": "De quais países esse mercado já compra, e a que preço?", "w": "são esses os seus concorrentes reais, e o preço deles é sua referência.", "o": "ITC Trade Map, na lista de países fornecedores e no valor médio por quilo."}, {"q": "Quem compraria de você: importador, distribuidor, indústria ou varejista?", "w": "cada um compra em volume diferente e pede uma abordagem diferente.", "o": "em feiras do setor e em empresas que já importam produtos parecidos."}, {"q": "O que esse comprador exige para fechar: lote mínimo, prazo de pagamento, embalagem?", "w": "descobrir isso no meio da negociação custa margem ou o negócio.", "o": "em conversa direta com dois ou três compradores do mercado."}];
+  var list = document.getElementById('seiList');
+  var rows = document.getElementById('faltaRows');
+  var sub = document.getElementById('faltaSub');
+  var pais = document.getElementById('pais');
 
   function update(){
-    document.querySelectorAll('.crit-opt').forEach(function(o){
-      var input = o.querySelector('input');
-      o.classList.toggle('checked', input.checked);
+    document.querySelectorAll('.sei-opts .crit-opt').forEach(function(o){
+      o.classList.toggle('checked', o.querySelector('input').checked);
     });
-
-    var results = letters.map(function(L, idx){
-      var card = document.querySelector('.market-card[data-market="'+idx+'"]');
-      var name = card.querySelector('.m-name').value.trim() || ('Mercado '+L);
-      var total = 0, answered = 0;
-      criteria.forEach(function(c){
-        var checked = card.querySelector('input[name="m'+idx+'_'+c.key+'"]:checked');
-        if (checked){ total += parseInt(checked.value,10); answered++; }
-      });
-      return {name:name, total:total, answered:answered};
+    var answered = 0, nao = [];
+    ITENS.forEach(function(it, i){
+      var c = list.querySelector('input[name="i'+i+'"]:checked');
+      if (c){ answered++; if (c.value === 'nao') nao.push(i); }
     });
-
-    var anyAnswered = results.some(function(r){ return r.answered > 0; });
-    if (!anyAnswered){
-      rankRows.innerHTML = '';
-      rankSub.textContent = 'Pontue pelo menos um mercado pra ver o ranking.';
+    var nome = pais.value.trim();
+    var alvo = nome ? ' sobre ' + nome : '';
+    if (answered < ITENS.length){
+      rows.innerHTML = '';
+      sub.textContent = answered === 0 ? 'Responda os 7 itens pra ver a sua lista.' : 'Faltam ' + (ITENS.length - answered) + ' item(ns) pra fechar a sua lista.';
       return;
     }
-
-    var sorted = results.slice().sort(function(a,b){ return b.total - a.total; });
-    var rowsHtml = '';
-    sorted.forEach(function(r, i){
-      var pct = (r.total/10*100);
-      rowsHtml += '<div class="rank-row">';
-      rowsHtml += '<div class="rank-pos">'+(i+1)+'º</div>';
-      rowsHtml += '<div class="rank-name">'+r.name+'</div>';
-      rowsHtml += '<div class="rank-bar-bg"><div class="rank-bar-fill" style="width:'+pct+'%"></div></div>';
-      rowsHtml += '<div class="rank-score">'+r.total+'/10</div>';
-      rowsHtml += '</div>';
-    });
-    rankRows.innerHTML = rowsHtml;
-
-    var complete = results.filter(function(r){ return r.answered === 5; });
-    if (complete.length === 0){
-      rankSub.textContent = 'Continue pontuando os 5 critérios de cada mercado pra fechar o ranking.';
-    } else {
-      var top = sorted[0];
-      rankSub.textContent = top.name + ' reúne mais fundamentos favoráveis até aqui — é o primeiro candidato pra investigar de verdade.';
+    if (nao.length === 0){
+      rows.innerHTML = '';
+      sub.innerHTML = '<strong>Você respondeu "Sei" para os 7 itens' + alvo + '.</strong> Antes de decidir, confira se cada resposta tem fonte: o que parece conhecimento sem fonte costuma ser a maior fonte de surpresa. Escolher mercado pelo tamanho do país ou pelo primeiro contato que aparece é o erro mais comum.';
+      return;
     }
+    var h = '';
+    nao.forEach(function(i){
+      var it = ITENS[i];
+      h += '<div class="falta-item"><h4>' + it.q + '</h4><p><strong>Por que importa:</strong> ' + it.w + '</p><p><strong>Onde descobrir:</strong> ' + it.o + '</p></div>';
+    });
+    rows.innerHTML = h;
+    sub.innerHTML = '<strong>' + nao.length + ' de 7 itens ainda por descobrir' + alvo + '.</strong> Escolher mercado pelo tamanho do país ou pelo primeiro contato que aparece é o erro mais comum. Cada item acima responde, com dados, se esse mercado vale o seu esforço.';
   }
-
-  matrixEl.addEventListener('change', update);
-  matrixEl.addEventListener('input', update);
+  list.addEventListener('change', update);
+  pais.addEventListener('input', update);
   update();
 })();
 </script>
